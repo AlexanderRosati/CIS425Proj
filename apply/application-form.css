@@ -1,0 +1,43 @@
+header, main, footer {
+    margin-left: 10%;
+}
+
+/* header */
+header {
+    border-bottom: 4px solid black;
+}
+
+header h1 {
+    color: #b8860b;
+    font-size: 300%;
+}
+
+header p {
+    font-size: 125%;
+}
+
+/* main */
+main {
+    margin-top: 36pt;
+}
+
+label {
+    display: inline-block;
+    width: 250px;
+    margin-bottom: 18pt;
+    color: #b8860b;
+    font-weight: 900;
+}
+
+/* footer */
+footer p {
+    text-align: right;
+}
+
+/* error message */
+.err {
+    color: red;
+    margin-bottom: 26pt;
+    background-color: #ffb3b3;
+    padding: 8px;
+}
