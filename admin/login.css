@@ -1,0 +1,26 @@
+body {
+    width: 60%;
+    height: 60%;
+    margin: 72pt auto;
+    border: 2px solid black;
+    padding: 30px;
+}
+
+label {
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 18pt;
+    color: red;
+    font-weight: 900;
+}
+
+h2 {
+    color: #b8860b;
+}
+
+.err {
+    color: red;
+    margin-bottom: 26pt;
+    background-color: #ffb3b3;
+    padding: 8px;
+}

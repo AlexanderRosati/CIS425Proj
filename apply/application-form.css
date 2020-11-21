@@ -41,3 +41,22 @@ footer p {
     background-color: #ffb3b3;
     padding: 8px;
 }
+
+/* admin btn */
+p#admin_link {
+    padding-right: 40px;
+    font-weight: bold;
+}
+
+/* actual link */
+p#admin_link a {
+    text-decoration: none;
+}
+
+p#admin_link a:link, p#admin_link a:visited {
+    color: red
+}
+
+p#admin_link a:hover, p#admin_link a:focus {
+    color: #800000
+}
