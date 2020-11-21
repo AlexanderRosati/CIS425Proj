@@ -1,0 +1,14 @@
+h2 {
+    color: #b8860b;
+}
+
+main {
+    width: 400px;
+    height: 200px;
+    margin: 10% auto;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+}

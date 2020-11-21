@@ -4,8 +4,7 @@
 
     # make sure user isn't already logged in
     if (isset($_SESSION['user'])) {
-        echo '<script>alert(\'You are already logged in!\');'
-             . 'window.location = \'../apply/application.php\';</script>';
+        header('Location: end-period.php');
     }
 
     # set error message to empty string
@@ -29,7 +28,7 @@
                     $_SESSION['user'] = $cred['userName'];
 
                     # go to admin page
-                    header('Location: admin.php');
+                    header('Location: end-period.php');
                 }
             }
 
