@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<winners>
+	<winner>
+		<id>100015</id>
+		<status>JUNIOR</status>
+		<cgpa>3.6</cgpa>
+		<gender>M</gender>
+		<fname>Alex</fname>
+		<lname>Rosati</lname>
+		<phoneNum>555-555-5555</phoneNum>
+		<email>smartciscollegestudent@gmail.com</email>
+		<dob>07-11-1999</dob>
+		<creditHours>15</creditHours>
+	</winner>
+</winners>
