@@ -4,6 +4,47 @@
 
     # application period ended
     if (isset($_POST['submit'])) {
+        # get the youngest applicant and remove them from applicants
+        function getYoungestApplicant(& $applicants) {
+            # get youngest applicant
+            $max_indx = 0;
+            $max_dob = $applicants[0];
+
+            for ($i = 1; $i < count($applicants); $i++) {
+                if ($applicants[$i]['DOB'] > $max_dob) {
+                    $max_indx = $i;
+                    $max_dob = $applicants[$i]['DOB'];
+                }
+            }
+
+            # save youngest applicant
+            $youngest_applicant = $applicants[$max_indx];
+
+            # remove youngest applicant
+            unset($applicants[$max_indx]);
+
+            # reindex b/c this language is stupid
+            $applicants = array_values($applicants);
+
+            return $youngest_applicant;
+        }
+
+        # append applicant onto $xml, which should be a string
+        function append_applicant(& $xml, $applicant) {
+            $xml .= "\t<winner>\n";
+            $xml .= "\t\t<id>" . $applicant['ID'] . "</id>\n";
+            $xml .= "\t\t<status>" . $applicant['STATUS'] . "</status>\n";
+            $xml .= "\t\t<cgpa>" . $applicant['CUM_GPA'] . "</cgpa>\n";
+            $xml .= "\t\t<gender>" . $applicant['GENDER'] . "</gender>\n";
+            $xml .= "\t\t<fname>" . $applicant['FNAME'] . "</fname>\n";
+            $xml .= "\t\t<lname>" . $applicant['LNAME'] . "</lname>\n";
+            $xml .= "\t\t<phoneNum>" . $applicant['PHONE_NUM'] . "</phoneNum>\n";
+            $xml .= "\t\t<email>" . $applicant['EMAIL'] . "</email>\n";
+            $xml .= "\t\t<dob>" . $applicant['DOB'] . "</dob>\n";
+            $xml .= "\t\t<creditHours>" . $applicant['CREDIT_HOURS'] . "</creditHours>\n";
+            $xml .= "\t</winner>\n";
+        }
+
         # generate xml file
         function generate_xml($applicants, $oneWinner = true) {
             # there's a winner
@@ -11,18 +52,7 @@
                 # create xml file
                 $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
                 $xml .= "<winners>\n";
-                $xml .= "\t<winner>\n";
-                $xml .= "\t\t<id>" . $applicants['ID'] . "</id>\n";
-                $xml .= "\t\t<status>" . $applicants['STATUS'] . "</status>\n";
-                $xml .= "\t\t<cgpa>" . $applicants['CUM_GPA'] . "</cgpa>\n";
-                $xml .= "\t\t<gender>" . $applicants['GENDER'] . "</gender>\n";
-                $xml .= "\t\t<fname>" . $applicants['FNAME'] . "</fname>\n";
-                $xml .= "\t\t<lname>" . $applicants['LNAME'] . "</lname>\n";
-                $xml .= "\t\t<phoneNum>" . $applicants['PHONE_NUM'] . "</phoneNum>\n";
-                $xml .= "\t\t<email>" . $applicants['EMAIL'] . "</email>\n";
-                $xml .= "\t\t<dob>" . $applicants['DOB'] . "</dob>\n";
-                $xml .= "\t\t<creditHours>" . $applicants['CREDIT_HOURS'] . "</creditHours>\n";
-                $xml .= "\t</winner>\n";
+                append_applicant($xml, $applicants);
                 $xml .= "</winners>\n";
 
                 # create file handler
@@ -37,7 +67,21 @@
 
             # no winner, must do interviews
             else {
+                # create xml file
+                $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+                $xml .= "<winners>\n";
+                append_applicant($xml, $applicants[0]);
+                append_applicant($xml, $applicants[1]);
+                $xml .= "</winners>\n";
 
+                # create file handler
+                $xmlFile = fopen('../data/winners.xml', 'w');
+
+                # write to file
+                fwrite($xmlFile, $xml);
+
+                # close file handler
+                fclose($xmlFile);
             }
         }
 
@@ -116,6 +160,7 @@
 
             # go to results page
             header('Location: results.php');
+            exit();
         }
 
         # get database connection
@@ -191,13 +236,64 @@
             process_winner($next_applicant_pool[0], $applicants);
         }
 
-        # more juiors
+        # more juniors
         else if (count($next_applicant_pool) > 1) {
             $curr_applicant_pool = $next_applicant_pool;
             $next_applicant_pool = [];
         }
 
+        # find all females in remaining applicants
+        foreach ($curr_applicant_pool as $applicant) {
+            if ($applicant['GENDER'] == 'F') {
+                array_push($next_applicant_pool, $applicant);
+            }
+        }
 
+        # one female
+        if (count($next_applicant_pool) == 1) {
+            process_winner($next_applicant_pool[0], $applicants);
+        }
+
+        # more females
+        else if (count($next_applicant_pool) > 1) {
+            $curr_applicant_pool = $next_applicant_pool;
+            $next_applicant_pool = [];
+        }
+
+        # get two youngest applicants
+        $youngest_applicants[] = getYoungestApplicant($curr_applicant_pool);
+        $youngest_applicants[] = getYoungestApplicant($curr_applicant_pool);
+
+        # generate xml for both applicants
+        generate_xml($youngest_applicants, false);
+
+        # email other eligible applicants
+        foreach ($applicants as $applicant) {
+            # if applicant is not a winner
+            if ($applicant['ID'] != $youngest_applicants[0]['ID'] &&
+                $applicant['ID'] != $youngest_applicants[1]['ID']) {
+
+                # email for non-winning eligible applicants
+                $fullname = $applicant['FNAME'] . ' ' . $applicant['LNAME'];
+                $other_applicant_email = "";
+                $other_applicant_email .= "Hi $fullname,\n\n";
+                $other_applicant_email .= "You didn't win the B. S. T. Smart Scholarship.\n\n";
+                $other_applicant_email .= "Try harder next time!";
+                
+                # send email to eligible applicant
+                if (!mail($applicant['EMAIL'], "So Sorry, $fullname", $other_applicant_email)) {
+                    echo 'Email to other eligible applicant did not send :(';
+                    exit();
+                }
+            }
+        }
+
+        # empty applicants table
+        $conn->query('DELETE FROM APPLICANTS');
+
+        # go to results page
+        header('Location: results.php');
+        exit();
     }
 
     # otherwise

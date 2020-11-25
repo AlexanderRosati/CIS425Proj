@@ -15,7 +15,7 @@
     }
 
     # one person with highst cpga
-    if ($_GET['test'] == 1) {
+    if ($_GET['test'] == 6) {
         #insert 1
         insert(100018, 'Y', 'SENIOR', '3.8', 'F', 'George', 'Carlin', '555-555-0019',
         'smartciscollegestudent@gmail.com', '10-31-2001', 12);
@@ -40,7 +40,7 @@
         'smartciscollegestudent@gmail.com', '03-10-2000', 12);
     }
 
-    # tire is broken by status
+    # tie is broken by status
     else if ($_GET['test'] == 3) {
         # insert 1
         insert(100015, 'Y', 'JUNIOR', '3.6', 'M', 'Alex', 'Rosati', '555-555-5555',
@@ -49,6 +49,32 @@
         # insert 2
         insert(100009, 'Y', 'SENIOR', '3.6', 'M', 'Joe', 'Biden', '555-555-5555',
         'smartciscollegestudent@gmail.com', '07-11-1999', 15); # SEMGPA is 3.6
+    }
+
+    # tie is broken by gender
+    else if ($_GET['test'] == 4) {
+        # insert 1
+        insert(100015, 'Y', 'JUNIOR', '3.6', 'F', 'Alex', 'Rosati', '555-555-5555',
+        'smartciscollegestudent@gmail.com', '07-11-1999', 15); # SEM GPA is 3.6
+
+        # insert 2
+        insert(100009, 'Y', 'SENIOR', '3.6', 'M', 'Joe', 'Biden', '555-555-5555',
+        'smartciscollegestudent@gmail.com', '07-11-1999', 15); # SEMGPA is 3.6
+    }
+
+    # testing yougest applicants
+    else if ($_GET['test'] == 5) {
+        insert(100014, 'Y', 'JUNIOR', '3.4', 'F', 'Jakob', 'Taylor', '555-555-0012', 
+        'smartciscollegestudent@gmail.com', '01-01-2000', 15);
+
+        insert(100008, 'Y', 'JUNIOR', '3.4', 'F', 'Alex', 'Rosat', '555-555-0012', 
+        'smartciscollegestudent@gmail.com', '01-02-2000', 15);
+
+        insert(100006, 'Y', 'JUNIOR', '3.4', 'F', 'Hillary', 'Clinton', '555-555-0012', 
+        'smartciscollegestudent@gmail.com', '02-02-2000', 15);
+
+        insert(100003, 'Y', 'JUNIOR', '3.4', 'F', 'Donald', 'Trump', '555-555-0012', 
+        'smartciscollegestudent@gmail.com', '03-02-2000', 15);
     }
 
     header('Location: ../apply/application.php');
