@@ -1,7 +1,4 @@
 <?php
-    # use the mysterious session_start() function
-    session_start();
-
     # application period ended
     if (isset($_POST['submit'])) {
         # get the youngest applicant and remove them from applicants

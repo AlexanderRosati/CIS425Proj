@@ -4,15 +4,16 @@
 
     # make sure user isn't already logged in
     if (isset($_SESSION['user'])) {
-
         # application period is over
         if (file_exists('../data/winners.xml')) {
             header('Location: results.php');
+            exit();
         }
 
         # in middle of application period
         else {
             header('Location: end-period.php');
+            exit();
         }
     }
 
