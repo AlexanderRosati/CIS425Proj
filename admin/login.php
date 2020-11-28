@@ -6,8 +6,20 @@
     if (isset($_SESSION['user'])) {
         # application period is over
         if (file_exists('../data/winners.xml')) {
-            header('Location: results.php');
-            exit();
+            # load xml
+            $winner = simplexml_load_file('../data/winners.xml');
+
+            # only one applicant in file, so they're the winner
+            if (!isset($winner->winner[1])) {
+                header('Location: results.php');
+                exit();
+            }
+
+            # two applicants in file
+            else {
+                header('Location: determine-winner.php');
+                exit();
+            }
         }
 
         # in middle of application period
@@ -37,8 +49,29 @@
                     # create session for user name
                     $_SESSION['user'] = $cred['userName'];
 
-                    # go to admin page
-                    header('Location: end-period.php');
+                    # does xml file exist?
+                    if (file_exists('../data/winners.xml')) {
+                        # load xml
+                        $winner = simplexml_load_file('../data/winners.xml');
+            
+                        # only one applicant in file, so they're the winner
+                        if (!isset($winner->winner[1])) {
+                            header('Location: results.php');
+                            exit();
+                        }
+            
+                        # two applicants in file
+                        else {
+                            header('Location: determine-winner.php');
+                            exit();
+                        }
+                    }
+            
+                    # in middle of application period
+                    else {
+                        header('Location: end-period.php');
+                        exit();
+                    }
                 }
             }
 
@@ -58,6 +91,7 @@
         <title>Login</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="login.css">
+        <link rel="stylesheet" href="back-to-form.css">
     </head>
     <body>
         <h2>Login</h2>
@@ -72,5 +106,4 @@
             <label>&nbsp;</label>
             <input id="submit_btn" name="submit" type="submit" value="Submit">
         </form>
-    </body>
-</html>
+<?php include('back-to-form.php'); ?>

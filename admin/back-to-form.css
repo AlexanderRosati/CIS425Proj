@@ -1,0 +1,18 @@
+a.footer_nav {
+    padding-right: 40px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.footer_nav:link, a.footer_nav:visited {
+    color: red
+}
+
+a.footer_nav:hover, a.footer_nav:focus {
+    color: #800000
+}
+
+footer ul {
+    list-style-type: none;
+    text-align: right;
+}

@@ -21,15 +21,15 @@
     <head>
         <title>Welcome, <?php echo $_SESSION['user']; ?>!</title>
         <link rel="stylesheet" href="end-period.css">
+        <link rel="stylesheet" href="back-to-form.css">
     </head>
     <body>
         <main>
             <h2>Welcome, <?php echo $_SESSION['user']; ?>!</h2>
-            <p>There are <strong><?php echo $num_applicants; ?></strong> applicant(s). Click below to end
+            <p>There are <strong><?php echo $num_applicants; ?></strong> eligible applicant(s). Click below to end
             the current application period. The results will be displayed after you click.</p><br>
             <form method="post" action="process.php">
                 <input id="submit" name="submit" type="submit" value="End Application Period">
             </form>
         </main>
-    </body>
-</html>
+<?php include('back-to-form.php'); ?>

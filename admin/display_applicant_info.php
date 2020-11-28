@@ -41,6 +41,9 @@ $html = <<<HTML
         <th>Credit Hours</th>
         <td>$applicant->creditHours</td>
     </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
 </table>
 HTML;
 

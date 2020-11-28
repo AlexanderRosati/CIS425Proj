@@ -30,7 +30,8 @@ label {
 }
 
 /* footer */
-footer p {
+footer ul {
+    list-style-type: none;
     text-align: right;
 }
 
@@ -43,20 +44,16 @@ footer p {
 }
 
 /* admin btn */
-p#admin_link {
+a.footer_nav {
     padding-right: 40px;
     font-weight: bold;
-}
-
-/* actual link */
-p#admin_link a {
     text-decoration: none;
 }
 
-p#admin_link a:link, p#admin_link a:visited {
+a.footer_nav:link, a.footer_nav:visited {
     color: red
 }
 
-p#admin_link a:hover, p#admin_link a:focus {
+a.footer_nav:hover, a.footer_nav:focus {
     color: #800000
 }

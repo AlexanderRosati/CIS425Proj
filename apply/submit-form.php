@@ -20,7 +20,6 @@
         echo '<p>We will email you the outcome as soon as we know.</p>';
         echo '<br><br><br>';
         echo '</main>';
-        include('footer.php');
         exit();
     }
 
@@ -160,4 +159,11 @@
     <br>
     <br>
 </main>
-<?php include('footer.php'); ?>
+<footer>
+    <ul>    
+        <li><a class="footer_nav" href="application.php">Back to Form</a></li>
+    </ul>
+</footer>
+
+</body>
+</html>

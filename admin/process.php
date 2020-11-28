@@ -128,7 +128,7 @@
             $accounting_email .= "Committe for B. S. T. Smart Scholarship";
 
             # email account office
-            if (!mail($winningApplicant['EMAIL'], 'Reimbursement for Student', $accounting_email)) {
+            if (!mail('smartciscollegestudent@gmail.com', 'Reimbursement for Student', $accounting_email)) {
                 echo 'Account Email didnt send :(';
                 exit();
             }
@@ -289,7 +289,7 @@
         $conn->query('DELETE FROM APPLICANTS');
 
         # go to results page
-        header('Location: results.php');
+        header('Location: determine-winner.php');
         exit();
     }
 

@@ -1,0 +1,26 @@
+div#content {
+    width: 500px;
+    margin: 72pt auto;
+}
+
+h2 {
+    margin-top: 18pt;
+    color: #b8860b;
+}
+
+table {
+    width: 500px;
+}
+
+table th {
+    text-align: left;
+}
+
+table td {
+    padding-left: 72pt;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 15px 0;
+}
