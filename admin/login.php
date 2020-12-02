@@ -104,6 +104,6 @@
             <label for="password">Password:</label>
             <input id="password" name="password" type="password" placeholder="Password"><br>
             <label>&nbsp;</label>
-            <input id="submit_btn" name="submit" type="submit" value="Submit">
+            <input id="submit_btn" name="submit" type="submit" value="Login">
         </form>
 <?php include('back-to-form.php'); ?>
